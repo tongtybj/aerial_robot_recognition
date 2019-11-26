@@ -17,6 +17,7 @@
     <remap from="~input" to="passthrough_filter_for_object/output" />
   </node>
 
+  <!--
   <node name="passthrough_filter_for_ground"
         pkg="nodelet" type="nodelet"
         args="load pcl/PassThrough /horizontal_object_detector_manager">
@@ -28,12 +29,21 @@
     <remap from="~input" to="passthrough_filter_for_ground/output" />
   </node>
 
+<node name="multi_plane_extraction" pkg="nodelet" type="nodelet"
+        args="load jsk_pcl/MultiPlaneExtraction /horizontal_object_detector_manager">
+    <remap from="~input" to="hsi_filter_red/output" />
+    <remap from="~input_polygons" to="ground_estimate/output_refined_polygon" />
+    <remap from="~input_coefficients" to="ground_estimate/output_refined_coefficients" />
+  </node>
+  -->
+
+  <node name="plane_from_tf" pkg="aerial_robot_perception" type="plane_from_tf_node" output="screen" />
+
   <node name="multi_plane_extraction" pkg="nodelet" type="nodelet"
         args="load jsk_pcl/MultiPlaneExtraction /horizontal_object_detector_manager">
     <remap from="~input" to="hsi_filter_red/output" />
-    <remap from="~indices" to="ground_estimate/output_refined" />
-    <remap from="~input_polygons" to="ground_estimate/output_refined_polygon" />
-    <remap from="~input_coefficients" to="ground_estimate/output_refined_coefficients" />
+    <remap from="~input_polygons" to="tf_plane_polygon" />
+    <remap from="~input_coefficients" to="tf_plane_coefficient" />
   </node>
 
   <node name="clustering_red_object" pkg="nodelet" type="nodelet"

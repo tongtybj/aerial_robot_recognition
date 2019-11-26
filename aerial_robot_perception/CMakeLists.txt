@@ -49,6 +49,9 @@ arp_add_nodelet(src/ground_object_detection.cpp "aerial_robot_perception/groundO
 add_library(${PROJECT_NAME} SHARED ${aerial_robot_perception_nodelet_sources})
 target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${OpenCV_LIBRARIES})
 
+add_executable(plane_from_tf_node src/plane_from_tf.cpp)
+target_link_libraries (plane_from_tf_node ${catkin_LIBRARIES})
+
 if(catkin_EXPORTED_LIBRARIES)
   add_dependencies(${PROJECT_NAME} ${catkin_EXPORTED_LIBRARIES})
 endif()
